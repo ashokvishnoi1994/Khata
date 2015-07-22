@@ -1,0 +1,123 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.abhishek.khata.UpdateActivity">
+
+    <TextView
+        android:id="@+id/tvHolderName"
+        android:text="Your Name" android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textSize="20dp"/>
+    <TextView
+        android:id="@+id/tvHolderBal"
+        android:text="Your Balance" android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvHolderName"
+        android:gravity="center"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:textSize="20dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/etAmount"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/tvHolderBal"
+        android:layout_margin="10dp"/>
+    <LinearLayout
+        android:id="@+id/lyout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etAmount"
+        android:weightSum="2">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Given"
+            android:id="@+id/bGiven"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_below="@+id/etAmount"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_weight="1"
+            android:onClick="givenEntry"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Taken"
+            android:id="@+id/btaken"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@id/etAmount"
+            android:layout_toRightOf="@+id/bGiven"
+            android:layout_alignParentRight="true"
+            android:layout_weight="1"
+            android:onClick="takenEntry"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvhistory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="History"
+        android:layout_below="@+id/lyout"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/tvHis1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvhistory"
+        android:layout_margin="10dp"
+        android:text="yo"
+        android:textSize="15dp"
+        android:padding="10dp"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/tvHis2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvHis1"
+        android:layout_margin="10dp"
+        android:text="yo"
+        android:textSize="15dp"
+        android:padding="10dp"
+        android:gravity="center"/>
+    <TextView
+        android:id="@+id/tvHis3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvHis2"
+        android:layout_margin="10dp"
+        android:text="yo"
+        android:textSize="15dp"
+        android:padding="10dp"
+        android:gravity="center"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete Account"
+        android:id="@+id/button"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:onClick="deleteEntry"/>
+
+
+</RelativeLayout>
