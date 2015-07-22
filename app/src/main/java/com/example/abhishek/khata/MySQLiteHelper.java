@@ -66,12 +66,13 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     public dataModel getEntry(String name) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_NAME,new String[]{COLUMN_ID,COLUMN_NAME,COLUMN_DATA,COLUMN_HIS1,COLUMN_HIS2,COLUMN_HIS3},COLUMN_NAME+" = ?",
+        Cursor cursor = db.query(TABLE_NAME,new String[]{COLUMN_ID,COLUMN_NAME,COLUMN_DATA,COLUMN_HIS1,COLUMN_HIS2,COLUMN_HIS3},
+                COLUMN_NAME+" = ?",
                 new String[]{name},null,null,null,null);
         if (cursor!=null)
             cursor.moveToFirst();
-        dataModel newentry = new dataModel(Integer.parseInt(cursor.getString(0)),cursor.getString(1),Integer.parseInt(cursor.getString(2)),
-                Integer.parseInt(cursor.getString(3)),Integer.parseInt(cursor.getString(4)),Integer.parseInt(cursor.getString(5)));
+        dataModel newentry = new dataModel(Integer.parseInt(cursor.getString(0)),cursor.getString(1),Float.parseFloat(cursor.getString(2)),
+                Float.parseFloat(cursor.getString(3)),Float.parseFloat(cursor.getString(4)),Float.parseFloat(cursor.getString(5)));
         return newentry;
     }
 
@@ -85,10 +86,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
                 dataModel entry = new dataModel();
                 entry.setId(Integer.parseInt(cursor.getString(0)));
                 entry.setName(cursor.getString(1));
-                entry.setAmount(Integer.parseInt(cursor.getString(2)));
-                entry.setHis1(Integer.parseInt(cursor.getString(3)));
-                entry.setHis2(Integer.parseInt(cursor.getString(4)));
-                entry.setHis3(Integer.parseInt(cursor.getString(5)));
+                entry.setAmount(Float.parseFloat(cursor.getString(2)));
+                entry.setHis1(Float.parseFloat(cursor.getString(3)));
+                entry.setHis2(Float.parseFloat(cursor.getString(4)));
+                entry.setHis3(Float.parseFloat(cursor.getString(5)));
                 dataModelList.add(entry);
             } while(cursor.moveToNext());
         }

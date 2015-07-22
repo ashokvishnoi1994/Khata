@@ -1,5 +1,7 @@
 package com.example.abhishek.khata;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -62,13 +64,13 @@ public class UpdateActivity extends ActionBarActivity {
         dataModel oldentry = db.getEntry(identity);
         String  newname = oldentry.getName();
         long newid = oldentry.getId();
-        int newhis1 = oldentry.getAmount();
-        int newhis2 = oldentry.getHis1();
-        int newhis3 = oldentry.getHis2();
-        int newamount = oldentry.getAmount();
+        float newhis1 = oldentry.getAmount();
+        float newhis2 = oldentry.getHis1();
+        float newhis3 = oldentry.getHis2();
+        float newamount = oldentry.getAmount();
 
         EditText etamnt = (EditText) findViewById(R.id.etAmount);
-        int amount = Integer.parseInt(etamnt.getText().toString());
+        float amount = Float.parseFloat(etamnt.getText().toString());
         newamount = newamount+amount;
         dataModel newentry = new dataModel(newid,newname,newamount,newhis1,newhis2,newhis3);
         db.updateEntry(newentry);
@@ -82,13 +84,13 @@ public class UpdateActivity extends ActionBarActivity {
         dataModel oldentry = db.getEntry(identity);
         String  newname = oldentry.getName();
         long newid = oldentry.getId();
-        int newhis1 = oldentry.getAmount();
-        int newhis2 = oldentry.getHis1();
-        int newhis3 = oldentry.getHis2();
-        int newamount = oldentry.getAmount();
+        float newhis1 = oldentry.getAmount();
+        float newhis2 = oldentry.getHis1();
+        float newhis3 = oldentry.getHis2();
+        float newamount = oldentry.getAmount();
 
         EditText etamnt = (EditText) findViewById(R.id.etAmount);
-        int amount = Integer.parseInt(etamnt.getText().toString());
+        float amount = Float.parseFloat(etamnt.getText().toString());
         newamount = newamount-amount;
         dataModel newentry = new dataModel(newid,newname,newamount,newhis1,newhis2,newhis3);
         db.updateEntry(newentry);
@@ -103,9 +105,25 @@ public class UpdateActivity extends ActionBarActivity {
     }
 
     public void deleteEntry(View view) {
-        MySQLiteHelper db = new MySQLiteHelper(this);
-        db.deleteEntry(db.getEntry(identity));
-        finish();
+        final android.content.Context myContext = this;
+        MySQLiteHelper db = new MySQLiteHelper(myContext);
+        AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+        dlgAlert.setMessage("Do you want to delete account of " + db.getEntry(identity).getName() + " ?");
+        dlgAlert.setTitle("Delete");
+        dlgAlert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                MySQLiteHelper dBase = new MySQLiteHelper(myContext);
+                dBase.deleteEntry(dBase.getEntry(identity));
+                finish();
+            }
+        });
+        dlgAlert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        dlgAlert.setCancelable(true);
+        dlgAlert.create().show();
     }
 
 

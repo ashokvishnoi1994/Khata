@@ -33,7 +33,7 @@ public class AddUser extends ActionBarActivity {
         EditText etname = (EditText) findViewById(R.id.etName);
         MySQLiteHelper dbhelper = new MySQLiteHelper(this);
         String name = etname.getText().toString();
-        int amount = Integer.parseInt(etamount.getText().toString());
+        float amount = Float.parseFloat(etamount.getText().toString());
 
         int newid = dbhelper.getEntryCount()+1;
 
@@ -49,7 +49,7 @@ public class AddUser extends ActionBarActivity {
         EditText etname = (EditText) findViewById(R.id.etName);
         MySQLiteHelper dbhelper = new MySQLiteHelper(this);
         String name = etname.getText().toString();
-        int amount = Integer.parseInt(etamount.getText().toString());
+        float amount = Float.parseFloat(etamount.getText().toString());
         amount = -1*amount;
 
         int newid = dbhelper.getEntryCount()+1;

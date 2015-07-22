@@ -6,15 +6,15 @@ package com.example.abhishek.khata;
 public class dataModel {
     private long id;
     private String name;
-    private int amount;
-    private int his1;
-    private int his2;
-    private int his3;
+    private float amount;
+    private float his1;
+    private float his2;
+    private float his3;
 
     public dataModel() {
     }
 
-    public dataModel(long id, String name, int amount, int his1, int his2, int his3) {
+    public dataModel(long id, String name, float amount, float his1, float his2, float his3) {
 
         this.id = id;
         this.name = name;
@@ -24,7 +24,7 @@ public class dataModel {
         this.his3 = his3;
     }
 
-    public dataModel(int id,String name,int amount) {
+    public dataModel(int id,String name,float amount) {
         this.id=id;
         this.name = name;
         this.amount = amount;
@@ -48,35 +48,35 @@ public class dataModel {
         this.name = name;
     }
 
-    public int getAmount() {
+    public float getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
     }
 
-    public int getHis1() {
+    public float getHis1() {
         return his1;
     }
 
-    public void setHis1(int his1) {
+    public void setHis1(float his1) {
         this.his1 = his1;
     }
 
-    public int getHis2() {
+    public float getHis2() {
         return his2;
     }
 
-    public void setHis2(int his2) {
+    public void setHis2(float his2) {
         this.his2 = his2;
     }
 
-    public int getHis3() {
+    public float getHis3() {
         return his3;
     }
 
-    public void setHis3(int his3) {
+    public void setHis3(float his3) {
         this.his3 = his3;
     }
 }
