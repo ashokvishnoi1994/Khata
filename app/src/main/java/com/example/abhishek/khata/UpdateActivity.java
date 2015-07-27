@@ -11,15 +11,20 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 
 public class UpdateActivity extends ActionBarActivity {
 
 
     private String identity;
-    private int amount;
-    private int his1;
-    private int his2;
-    private int his3;
+    private float amount;
+    private float his1;
+    private float his2;
+    private float his3;
+    private float his4;
+    private float his5;
     private String name;
 
     TextView username;
@@ -27,6 +32,8 @@ public class UpdateActivity extends ActionBarActivity {
     TextView userhis1;
     TextView userhis2;
     TextView userhis3;
+    TextView userhis4;
+    TextView userhis5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +47,8 @@ public class UpdateActivity extends ActionBarActivity {
         userhis1 = (TextView) findViewById(R.id.tvHis1);
         userhis2 = (TextView) findViewById(R.id.tvHis2);
         userhis3 = (TextView) findViewById(R.id.tvHis3);
+        userhis4 = (TextView) findViewById(R.id.tvHis4);
+        userhis5 = (TextView) findViewById(R.id.tvHis5);
 
         Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
@@ -48,13 +57,17 @@ public class UpdateActivity extends ActionBarActivity {
 
 
         username.setText(user.getName());
-        userBal.setText("Your Balance: " + String.valueOf(user.getAmount()));
-        userhis1.setText(String.valueOf(user.getHis1()));
-        userhis2.setText(String.valueOf(user.getHis2()));
-        userhis3.setText(String.valueOf(user.getHis3()));
-
-
-
+        //String amount = user.getAmount().getComment();
+        //if(amount.length()>10) amount = amount.substring(0,10);
+        //String his1Cmt = user.getHis1().getComment();
+        //if(amount.length()>10) his1C
+        NumberFormat formatter = new DecimalFormat("#0.00");
+        userBal.setText("Your Balance: " + String.valueOf(formatter.format(user.getAmount().getAmount())+" "+user.getAmount().getComment()));
+        userhis1.setText(String.valueOf(formatter.format(user.getHis1().getAmount())+" "+user.getHis1().getComment()));
+        userhis2.setText(String.valueOf(formatter.format(user.getHis2().getAmount())+" "+user.getHis2().getComment()));
+        userhis3.setText(String.valueOf(formatter.format(user.getHis3().getAmount())+" "+user.getHis3().getComment()));
+        userhis4.setText(String.valueOf(formatter.format(user.getHis4().getAmount())+" "+user.getHis4().getComment()));
+        userhis5.setText(String.valueOf(formatter.format(user.getHis5().getAmount())+" "+user.getHis5().getComment()));
     }
 
     //update entry functions
@@ -64,16 +77,20 @@ public class UpdateActivity extends ActionBarActivity {
         dataModel oldentry = db.getEntry(identity);
         String  newname = oldentry.getName();
         long newid = oldentry.getId();
-        float newhis1 = oldentry.getAmount();
-        float newhis2 = oldentry.getHis1();
-        float newhis3 = oldentry.getHis2();
-        float newamount = oldentry.getAmount();
+        AmountDescription newhis1 = oldentry.getAmount();
+        AmountDescription newhis2 = oldentry.getHis1();
+        AmountDescription newhis3 = oldentry.getHis2();
+        AmountDescription newhis4 = oldentry.getHis3();
+        AmountDescription newhis5 = oldentry.getHis4();
+        AmountDescription newamount = new AmountDescription();
 
         EditText etamnt = (EditText) findViewById(R.id.etAmount);
-        float amount = Float.parseFloat(etamnt.getText().toString());
-        newamount = newamount+amount;
-        dataModel newentry = new dataModel(newid,newname,newamount,newhis1,newhis2,newhis3);
+        EditText etcmnt = (EditText) findViewById(R.id.etComment);
+        newamount.setComment(etcmnt.getText().toString());
+        newamount.setAmount(oldentry.getAmount().getAmount() + Float.parseFloat(etamnt.getText().toString()));
+        dataModel newentry = new dataModel(newid,newname,newamount,newhis1,newhis2,newhis3,newhis4,newhis5);
         db.updateEntry(newentry);
+        dataModel s = db.getEntry(newentry.getName());
         Intent intent = getIntent();
         startActivity(intent);
 
@@ -84,15 +101,18 @@ public class UpdateActivity extends ActionBarActivity {
         dataModel oldentry = db.getEntry(identity);
         String  newname = oldentry.getName();
         long newid = oldentry.getId();
-        float newhis1 = oldentry.getAmount();
-        float newhis2 = oldentry.getHis1();
-        float newhis3 = oldentry.getHis2();
-        float newamount = oldentry.getAmount();
+        AmountDescription newhis1 = oldentry.getAmount();
+        AmountDescription newhis2 = oldentry.getHis1();
+        AmountDescription newhis3 = oldentry.getHis2();
+        AmountDescription newhis4 = oldentry.getHis3();
+        AmountDescription newhis5 = oldentry.getHis4();
+        AmountDescription newamount = new AmountDescription();
 
         EditText etamnt = (EditText) findViewById(R.id.etAmount);
-        float amount = Float.parseFloat(etamnt.getText().toString());
-        newamount = newamount-amount;
-        dataModel newentry = new dataModel(newid,newname,newamount,newhis1,newhis2,newhis3);
+        EditText etcmnt = (EditText) findViewById(R.id.etComment);
+        newamount.setComment(etcmnt.getText().toString());
+        newamount.setAmount(oldentry.getAmount().getAmount() - Float.parseFloat(etamnt.getText().toString()));
+        dataModel newentry = new dataModel(newid,newname,newamount,newhis1,newhis2,newhis3,newhis4,newhis5);
         db.updateEntry(newentry);
         Intent intent = getIntent();
         startActivity(intent);

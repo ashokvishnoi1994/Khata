@@ -11,32 +11,42 @@
         android:text="Your Name" android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:textSize="20dp"/>
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textSize="15dp"/>
     <TextView
         android:id="@+id/tvHolderBal"
         android:text="Your Balance" android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvHolderName"
         android:gravity="center"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:textSize="20dp"/>
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textSize="15dp"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number|numberSigned|numberDecimal"
         android:ems="10"
+        android:hint="Amount"
         android:id="@+id/etAmount"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/tvHolderBal"
-        android:layout_margin="10dp"/>
+        android:layout_margin="5dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Comments"
+        android:id="@+id/etComment"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/etAmount"
+        android:layout_margin="5dp"/>
     <LinearLayout
         android:id="@+id/lyout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etAmount"
+        android:layout_below="@+id/etComment"
         android:weightSum="2">
         <Button
             android:layout_width="wrap_content"
@@ -64,60 +74,94 @@
             android:layout_weight="1"
             android:onClick="takenEntry"/>
     </LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:paddingTop="5dp"
+        android:layout_height="50dp"
+        android:text="Delete Account"
+        android:id="@+id/button"
+        android:layout_below="@id/lyout"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentBottom="false"
+        android:gravity="center"
+        android:onClick="deleteEntry"/>
 
     <TextView
         android:id="@+id/tvhistory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="History"
-        android:layout_below="@+id/lyout"
-        android:textSize="20dp"
+        android:layout_below="@+id/button"
+        android:textSize="15dp"
         android:gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:textStyle="bold"
         />
-    <TextView
-        android:id="@+id/tvHis1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvhistory"
-        android:layout_margin="10dp"
-        android:text="yo"
-        android:textSize="15dp"
-        android:padding="10dp"
-        android:gravity="center"/>
-    <TextView
-        android:id="@+id/tvHis2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvHis1"
-        android:layout_margin="10dp"
-        android:text="yo"
-        android:textSize="15dp"
-        android:padding="10dp"
-        android:gravity="center"/>
-    <TextView
-        android:id="@+id/tvHis3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvHis2"
-        android:layout_margin="10dp"
-        android:text="yo"
-        android:textSize="15dp"
-        android:padding="10dp"
-        android:gravity="center"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Delete Account"
-        android:id="@+id/button"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="10dp"
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/scroll"
+        android:layout_below="@id/tvhistory"
+        android:layout_width="fill_parent"
+        android:layout_height="195dp">
         android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:onClick="deleteEntry"/>
+        <LinearLayout
+            android:id="@+id/lyoutHis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@+id/tvhistory">
+            <TextView
+                android:id="@+id/tvHis1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvhistory"
+                android:layout_margin="5dp"
+                android:text="yo"
+                android:textSize="15dp"
+                android:padding="5dp"
+                android:gravity="center"/>
+            <TextView
+                android:id="@+id/tvHis2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="yo"
+                android:textSize="15dp"
+                android:padding="5dp"
+                android:gravity="center"/>
+            <TextView
+                android:id="@+id/tvHis3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="yo"
+                android:textSize="15dp"
+                android:padding="5dp"
+                android:gravity="center"/>
+            <TextView
+                android:id="@+id/tvHis4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="yo"
+                android:textSize="15dp"
+                android:padding="10dp"
+                android:gravity="center"/>
+            <TextView
+                android:id="@+id/tvHis5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="yo"
+                android:textSize="15dp"
+                android:padding="5dp"
+                android:gravity="center"/>
+        </LinearLayout>
+    </ScrollView>
+
 
 
 </RelativeLayout>

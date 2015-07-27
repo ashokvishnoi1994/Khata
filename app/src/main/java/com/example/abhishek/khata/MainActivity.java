@@ -32,7 +32,7 @@ public class MainActivity extends ListActivity implements ActionBar.OnNavigation
 
         for(dataModel en:entries) {
             namelist.add(en.getName());
-            amountlist.add(String.valueOf(en.getAmount()));
+            amountlist.add(String.valueOf(en.getAmount().getAmount()));
         }
 
         names = new String[namelist.size()];

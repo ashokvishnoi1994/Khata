@@ -6,15 +6,26 @@ package com.example.abhishek.khata;
 public class dataModel {
     private long id;
     private String name;
-    private float amount;
-    private float his1;
-    private float his2;
-    private float his3;
+    private AmountDescription amount;
+    private AmountDescription his1;
+    private AmountDescription his2;
+    private AmountDescription his3;
+    private AmountDescription his4;
+    private AmountDescription his5;
 
     public dataModel() {
+        this.id = 0;
+        this.name = "";
+        this.amount = new AmountDescription();
+        this.his1 = new AmountDescription();
+        this.his2 = new AmountDescription();
+        this.his3 = new AmountDescription();
+        this.his4 = new AmountDescription();
+        this.his5 = new AmountDescription();
     }
 
-    public dataModel(long id, String name, float amount, float his1, float his2, float his3) {
+    public dataModel(long id, String name, AmountDescription amount, AmountDescription his1, AmountDescription his2,
+                     AmountDescription his3,  AmountDescription his4,  AmountDescription his5) {
 
         this.id = id;
         this.name = name;
@@ -22,15 +33,19 @@ public class dataModel {
         this.his1 = his1;
         this.his2 = his2;
         this.his3 = his3;
+        this.his4 = his4;
+        this.his5 = his5;
     }
 
-    public dataModel(int id,String name,float amount) {
+    public dataModel(int id,String name,AmountDescription amount) {
         this.id=id;
         this.name = name;
         this.amount = amount;
-        this.his1 = 0;
-        this.his2 = 0;
-        this.his3 = 0;
+        this.his1 = new AmountDescription();
+        this.his2 = new AmountDescription();
+        this.his3 = new AmountDescription();
+        this.his4 = new AmountDescription();
+        this.his5 = new AmountDescription();
     }
     public long getId() {
         return id;
@@ -48,35 +63,52 @@ public class dataModel {
         this.name = name;
     }
 
-    public float getAmount() {
+    public AmountDescription getAmount() {
         return amount;
     }
 
-    public void setAmount(float amount) {
+    public void setAmount(AmountDescription amount) {
         this.amount = amount;
     }
 
-    public float getHis1() {
+    public AmountDescription getHis1() {
         return his1;
     }
 
-    public void setHis1(float his1) {
+    public void setHis1(AmountDescription his1) {
         this.his1 = his1;
     }
 
-    public float getHis2() {
+    public AmountDescription getHis2() {
         return his2;
     }
 
-    public void setHis2(float his2) {
+    public void setHis2(AmountDescription his2) {
         this.his2 = his2;
     }
 
-    public float getHis3() {
+    public AmountDescription getHis3() {
         return his3;
     }
 
-    public void setHis3(float his3) {
+    public void setHis3(AmountDescription his3) {
         this.his3 = his3;
     }
+
+    public AmountDescription getHis4() {
+        return his4;
+    }
+
+    public void setHis4(AmountDescription his4) {
+        this.his4 = his4;
+    }
+
+    public AmountDescription getHis5() {
+        return his5;
+    }
+
+    public void setHis5(AmountDescription his5) {
+        this.his5 = his5;
+    }
+
 }
