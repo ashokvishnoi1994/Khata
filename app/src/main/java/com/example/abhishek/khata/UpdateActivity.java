@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class UpdateActivity extends ActionBarActivity {
@@ -62,7 +64,7 @@ public class UpdateActivity extends ActionBarActivity {
         //String his1Cmt = user.getHis1().getComment();
         //if(amount.length()>10) his1C
         NumberFormat formatter = new DecimalFormat("#0.00");
-        userBal.setText("Your Balance: " + String.valueOf(formatter.format(user.getAmount().getAmount())+" "+user.getAmount().getComment()));
+        userBal.setText("Your Balance: " + String.valueOf(formatter.format(user.getAmount().getAmount())+"\n"+user.getAmount().getComment()));
         userhis1.setText(String.valueOf(formatter.format(user.getHis1().getAmount())+" "+user.getHis1().getComment()));
         userhis2.setText(String.valueOf(formatter.format(user.getHis2().getAmount())+" "+user.getHis2().getComment()));
         userhis3.setText(String.valueOf(formatter.format(user.getHis3().getAmount())+" "+user.getHis3().getComment()));
@@ -84,10 +86,18 @@ public class UpdateActivity extends ActionBarActivity {
         AmountDescription newhis5 = oldentry.getHis4();
         AmountDescription newamount = new AmountDescription();
 
-        EditText etamnt = (EditText) findViewById(R.id.etAmount);
-        EditText etcmnt = (EditText) findViewById(R.id.etComment);
-        newamount.setComment(etcmnt.getText().toString());
-        newamount.setAmount(oldentry.getAmount().getAmount() + Float.parseFloat(etamnt.getText().toString()));
+        String etamnt = ((EditText) findViewById(R.id.etAmount)).getText().toString();
+        String etcmnt = ((EditText) findViewById(R.id.etComment)).getText().toString();
+        if(etamnt.length()==0 || etamnt==null ) {
+            if(etcmnt==null || etcmnt.length()==0)
+            return;
+            else etamnt = "0";
+        }
+        if(etcmnt.length()==0 || etcmnt==null)
+            etcmnt = "";
+        String date = (new SimpleDateFormat("E dd.MM.yyyy 'at' HH:mm")).format(new Date());
+        newamount.setComment(date+" "+etcmnt);
+        newamount.setAmount(oldentry.getAmount().getAmount() + Float.parseFloat(etamnt));
         dataModel newentry = new dataModel(newid,newname,newamount,newhis1,newhis2,newhis3,newhis4,newhis5);
         db.updateEntry(newentry);
         dataModel s = db.getEntry(newentry.getName());
@@ -108,10 +118,18 @@ public class UpdateActivity extends ActionBarActivity {
         AmountDescription newhis5 = oldentry.getHis4();
         AmountDescription newamount = new AmountDescription();
 
-        EditText etamnt = (EditText) findViewById(R.id.etAmount);
-        EditText etcmnt = (EditText) findViewById(R.id.etComment);
-        newamount.setComment(etcmnt.getText().toString());
-        newamount.setAmount(oldentry.getAmount().getAmount() - Float.parseFloat(etamnt.getText().toString()));
+        String etamnt = ((EditText) findViewById(R.id.etAmount)).getText().toString();
+        String etcmnt = ((EditText) findViewById(R.id.etComment)).getText().toString();
+        if(etamnt.length()==0 || etamnt==null ){
+            if(etcmnt==null || etcmnt.length()==0)
+                return;
+            else etamnt = "0";
+        }
+        if(etcmnt.length()==0 || etcmnt==null)
+            etcmnt = "";
+        String date = (new SimpleDateFormat("E dd.MM.yyyy 'at' HH:mm")).format(new Date());
+        newamount.setComment(date+" "+etcmnt);
+        newamount.setAmount(oldentry.getAmount().getAmount() - Float.parseFloat(etamnt));
         dataModel newentry = new dataModel(newid,newname,newamount,newhis1,newhis2,newhis3,newhis4,newhis5);
         db.updateEntry(newentry);
         Intent intent = getIntent();

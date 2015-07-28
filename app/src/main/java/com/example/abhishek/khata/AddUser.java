@@ -8,6 +8,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class AddUser extends ActionBarActivity {
 
@@ -29,13 +32,18 @@ public class AddUser extends ActionBarActivity {
 
     public void addEntry(View view) {
 
-        EditText etamount = (EditText) findViewById(R.id.etAmount);
-        EditText etname = (EditText) findViewById(R.id.etName);
-        EditText etcomment = (EditText) findViewById(R.id.etComment);
+        String etamount = ((EditText) findViewById(R.id.etAmount)).getText().toString();
+        String etname = ((EditText) findViewById(R.id.etName)).getText().toString();
+        String etcomment = ((EditText) findViewById(R.id.etComment)).getText().toString();
         MySQLiteHelper dbhelper = new MySQLiteHelper(this);
-        String name = etname.getText().toString();
-        AmountDescription amount = new AmountDescription(etcomment.getText().toString(),
-                Float.parseFloat(etamount.getText().toString()));
+        String name = etname;
+        if(etamount.length()==0 || etamount==null)
+            etamount = "0";
+        if(etcomment==null)
+            etcomment = "";
+        String date = (new SimpleDateFormat("E dd.MM.yyyy 'at' HH:mm")).format(new Date());
+        AmountDescription amount = new AmountDescription(date +" "+etcomment,
+                Float.parseFloat(etamount));
 
         int newid = dbhelper.getEntryCount()+1;
 
@@ -47,13 +55,18 @@ public class AddUser extends ActionBarActivity {
     }
     public void takenEntry(View view) {
 
-        EditText etamount = (EditText) findViewById(R.id.etAmount);
-        EditText etname = (EditText) findViewById(R.id.etName);
-        EditText etcomment = (EditText) findViewById(R.id.etComment);
+        String etamount = ((EditText) findViewById(R.id.etAmount)).getText().toString();
+        String etname = ((EditText) findViewById(R.id.etName)).getText().toString();
+        String etcomment = ((EditText) findViewById(R.id.etComment)).getText().toString();
         MySQLiteHelper dbhelper = new MySQLiteHelper(this);
-        String name = etname.getText().toString();
-        AmountDescription amount = new AmountDescription(etcomment.getText().toString(),
-                Float.parseFloat(etamount.getText().toString()));
+        String name = etname;
+        if(etamount.length()==0 || etamount==null)
+            etamount = "0";
+        if(etcomment==null)
+            etcomment = "";
+        String date = (new SimpleDateFormat("E dd.MM.yyyy 'at' HH:mm")).format(new Date());
+        AmountDescription amount = new AmountDescription(date+" "+etcomment,
+                Float.parseFloat(etamount));
         amount.setAmount(-1*amount.getAmount());
 
         int newid = dbhelper.getEntryCount()+1;
