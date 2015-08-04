@@ -1,5 +1,7 @@
 package com.example.abhishek.khata;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -37,6 +39,19 @@ public class AddUser extends ActionBarActivity {
         String etcomment = ((EditText) findViewById(R.id.etComment)).getText().toString();
         MySQLiteHelper dbhelper = new MySQLiteHelper(this);
         String name = etname;
+        if(null==name || name.length()==0){
+            AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+            dlgAlert.setMessage("No name entered. Please enter a name first.");
+            dlgAlert.setTitle("Error");
+            dlgAlert.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+            return;
+        }
         if(etamount.length()==0 || etamount==null)
             etamount = "0";
         if(etcomment==null)
@@ -60,6 +75,19 @@ public class AddUser extends ActionBarActivity {
         String etcomment = ((EditText) findViewById(R.id.etComment)).getText().toString();
         MySQLiteHelper dbhelper = new MySQLiteHelper(this);
         String name = etname;
+        if(null==name || name.length()==0){
+            AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+            dlgAlert.setMessage("No name entered. Please enter a name first.");
+            dlgAlert.setTitle("Error");
+            dlgAlert.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            dlgAlert.setCancelable(true);
+            dlgAlert.create().show();
+            return;
+        }
         if(etamount.length()==0 || etamount==null)
             etamount = "0";
         if(etcomment==null)

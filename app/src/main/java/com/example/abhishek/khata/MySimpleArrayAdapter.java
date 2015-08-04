@@ -1,6 +1,7 @@
 package com.example.abhishek.khata;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +36,17 @@ public class MySimpleArrayAdapter extends ArrayAdapter<String> {
 
 
         nameview.setText(names[position]);
+        float balanceFloat = Float.parseFloat(balance[position]);
         balview.setText(balance[position]);
-
+        if(balanceFloat>0){
+            balview.setTextColor(Color.rgb(25,175,5));
+            nameview.setTextColor(Color.rgb(25,175,5));
+        }
+        else if(balanceFloat<0)
+        {
+            balview.setTextColor(Color.RED);
+            nameview.setTextColor(Color.RED);
+        }
 
         return rowView;
 
