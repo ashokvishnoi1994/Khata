@@ -124,7 +124,7 @@ public class UpdateActivity extends ActionBarActivity {
             if(etcmnt==null || etcmnt.length()==0)
                 return;
             else etamnt = "0";
-        }
+        }   
         if(etcmnt.length()==0 || etcmnt==null)
             etcmnt = "";
         String date = (new SimpleDateFormat("E dd.MM.yyyy 'at' HH:mm")).format(new Date());
