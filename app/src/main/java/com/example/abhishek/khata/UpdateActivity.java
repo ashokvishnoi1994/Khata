@@ -181,7 +181,10 @@ public class UpdateActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
 
-
+        if(id==R.id.action_delete) {
+            deleteEntry(null);
+            return  true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

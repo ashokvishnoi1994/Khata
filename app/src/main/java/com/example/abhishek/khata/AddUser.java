@@ -95,7 +95,8 @@ public class AddUser extends ActionBarActivity {
         String date = (new SimpleDateFormat("E dd.MM.yyyy 'at' HH:mm")).format(new Date());
         AmountDescription amount = new AmountDescription(date+" "+etcomment,
                 Float.parseFloat(etamount));
-        amount.setAmount(-1*amount.getAmount());
+
+            amount.setAmount(-1*amount.getAmount());
 
         int newid = dbhelper.getEntryCount()+1;
 
