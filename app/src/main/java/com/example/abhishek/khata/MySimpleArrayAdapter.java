@@ -29,7 +29,7 @@ public class MySimpleArrayAdapter extends ArrayAdapter<String> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.activity_main,parent,false);
+        View rowView = inflater.inflate(R.layout.row_layout,parent,false);
 
         TextView nameview = (TextView) rowView.findViewById(R.id.nameView);
         TextView balview = (TextView) rowView.findViewById(R.id.balView);
@@ -37,7 +37,7 @@ public class MySimpleArrayAdapter extends ArrayAdapter<String> {
 
         nameview.setText(names[position]);
         float balanceFloat = Float.parseFloat(balance[position]);
-        if("-0.0"==balance[position]){
+        if("-0.0".equals(balance[position])){
             balview.setText("0.0");
         }
         else{

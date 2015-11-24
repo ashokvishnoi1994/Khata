@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -21,13 +22,6 @@ public class UpdateActivity extends ActionBarActivity {
 
 
     private String identity;
-    private float amount;
-    private float his1;
-    private float his2;
-    private float his3;
-    private float his4;
-    private float his5;
-    private String name;
 
     TextView username;
     TextView userBal;
@@ -152,6 +146,7 @@ public class UpdateActivity extends ActionBarActivity {
             public void onClick(DialogInterface dialog, int which) {
                 MySQLiteHelper dBase = new MySQLiteHelper(myContext);
                 dBase.deleteEntry(dBase.getEntry(identity));
+                Toast.makeText(UpdateActivity.this, "Account deleted succesfully.", Toast.LENGTH_LONG).show();
                 finish();
             }
         });

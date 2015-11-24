@@ -36,7 +36,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 
     public MySQLiteHelper(Context context) {
-        super(context,DATABASE_NAME,null,DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
@@ -54,6 +54,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             db.execSQL("ALTER TABLE TABLE_NAME ADD COLUMN COLUMN_HIS5 INTEGER DEFAULT 0");
     }
 
+
     public void addEntry(dataModel data) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -61,12 +62,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         values.put(COLUMN_DATA,String.valueOf(data.getAmount().getAmount())+"+"+data.getAmount().getComment());
         values.put(COLUMN_HIS1,String.valueOf(data.getHis1().getAmount())+"+"+data.getHis1().getComment());
         values.put(COLUMN_HIS2,String.valueOf(data.getHis2().getAmount())+"+"+data.getHis2().getComment());
-        values.put(COLUMN_HIS3,String.valueOf(data.getHis3().getAmount())+"+"+data.getHis3().getComment());
-        values.put(COLUMN_HIS4,String.valueOf(data.getHis4().getAmount())+"+"+data.getHis4().getComment());
-        values.put(COLUMN_HIS5,String.valueOf(data.getHis5().getAmount())+"+"+data.getHis5().getComment());
+        values.put(COLUMN_HIS3, String.valueOf(data.getHis3().getAmount()) + "+" + data.getHis3().getComment());
+        values.put(COLUMN_HIS4, String.valueOf(data.getHis4().getAmount()) + "+" + data.getHis4().getComment());
+        values.put(COLUMN_HIS5, String.valueOf(data.getHis5().getAmount()) + "+" + data.getHis5().getComment());
 
 
-        db.insert(TABLE_NAME,null,values);
+        db.insert(TABLE_NAME, null, values);
         db.close();
     }
 
@@ -137,6 +138,18 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         return dataModelList;
     }
 
+    public void updateName(dataModel entry,String newName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME, newName);
+        values.put(COLUMN_DATA, String.valueOf(entry.getAmount().getAmount()) + "+" + entry.getAmount().getComment());
+        values.put(COLUMN_HIS1, String.valueOf(entry.getHis1().getAmount()) + "+" + entry.getHis1().getComment());
+        values.put(COLUMN_HIS2, String.valueOf(entry.getHis2().getAmount()) + "+" + entry.getHis2().getComment());
+        values.put(COLUMN_HIS3, String.valueOf(entry.getHis3().getAmount()) + "+" + entry.getHis3().getComment());
+        values.put(COLUMN_HIS4, String.valueOf(entry.getHis4().getAmount()) + "+" + entry.getHis4().getComment());
+        values.put(COLUMN_HIS5, String.valueOf(entry.getHis5().getAmount()) + "+" + entry.getHis5().getComment());
+        db.update(TABLE_NAME, values, COLUMN_ID + " = ?", new String[]{String.valueOf(entry.getId())});
+    }
     public int updateEntry(dataModel entry) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();

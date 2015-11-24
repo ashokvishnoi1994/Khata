@@ -6,6 +6,6 @@
     <item android:id="@+id/action_delete"
         android:title="Delete User"
         app:showAsAction="always"
-        android:icon="@drawable/ic_action_discard"
+        android:icon="@drawable/ic_action_discard1"
         />
 </menu>

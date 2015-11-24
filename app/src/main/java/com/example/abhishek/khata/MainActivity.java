@@ -1,19 +1,23 @@
 package com.example.abhishek.khata;
 
 import android.app.ActionBar;
-import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ActionMode;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.app.ListActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +26,17 @@ public class MainActivity extends ListActivity implements ActionBar.OnNavigation
 
     private String[] names;
     private String[] balance;
-   // private ActionMode mActionMode;
+    private ActionMode mActionMode;
+    private String identityStr;
+    int selectedPosition;
+    long selectedID;
+    String selectedName;
+    View selectedView;
+
+    private android.content.Context myContext;
     public final static String EXTRA_MESSAGE = "com.example.abhishek.khata.MESSAGE";
 
-   /* private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
+    private ActionMode.Callback mActionModeCallback = new ActionMode.Callback() {
 
         // Called when the action mode is created; startActionMode() was called
         @Override
@@ -48,10 +59,56 @@ public class MainActivity extends ListActivity implements ActionBar.OnNavigation
         public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.action_edit:
+                    AlertDialog.Builder dlgName = new AlertDialog.Builder(myContext);
+                    LayoutInflater inflater = MainActivity.this.getLayoutInflater();
+                    dlgName.setView(inflater.inflate(R.layout.name_change, null))
+                            .setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    MySQLiteHelper mySQLH = new MySQLiteHelper(myContext);
+                                    dataModel dm = (mySQLH.getEntry(selectedName));
+                                    String newName = "ashok";
+                                   // String newName = ((EditText) findViewById(R.id.nameUpdate)).getText().toString();
+                                    mySQLH.updateName(dm, newName);
+                                    onRestart();
+                                }
+                            })
+                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
 
-                    mode.finish(); // Action picked, so close the CAB
+                                }
+                            });
+                    dlgName.setMessage("Type the new name for selected account.");
+                    EditText newNameTV = (EditText)findViewById(R.id.nameUpdate);
+                   // newNameTV.setText(selectedName);
+                    //newNameTV.setCursorVisible(true);
+
+
+
+                    dlgName.setCancelable(true);
+                    dlgName.create().show();
+                    mode.finish();
                     return true;
                 case R.id.action_delete:
+
+                    MySQLiteHelper db = new MySQLiteHelper(myContext);
+                    AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(myContext);
+                    dlgAlert.setMessage("Do you want to delete account of " + db.getEntry(identityStr).getName() + " ?");
+                    dlgAlert.setTitle("Delete");
+                    dlgAlert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            MySQLiteHelper dBase = new MySQLiteHelper(myContext);
+                            dBase.deleteEntry(dBase.getEntry(identityStr));
+                            Toast.makeText(MainActivity.this, "Account deleted succesfully.", Toast.LENGTH_LONG).show();
+                            onRestart();
+                        }
+                    });
+                    dlgAlert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    dlgAlert.setCancelable(true);
+                    dlgAlert.create().show();
 
                     mode.finish(); // Action picked, so close the CAB
                     return true;
@@ -66,13 +123,13 @@ public class MainActivity extends ListActivity implements ActionBar.OnNavigation
             mActionMode = null;
         }
 
-    }; */
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         MySQLiteHelper db = new MySQLiteHelper(this);
-
+        myContext = this;
         List<dataModel> entries =  db.getAllEntries();
         List<String> namelist = new ArrayList<String>();
         List<String> amountlist = new ArrayList<String>();
@@ -87,24 +144,26 @@ public class MainActivity extends ListActivity implements ActionBar.OnNavigation
         namelist.toArray(names);
         amountlist.toArray(balance);
         MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(this,names,balance);
-
         setListAdapter(adapter);
-       /* View myView = findViewById(R.id.nameView);
-        myView.setOnLongClickListener(new View.OnLongClickListener() {
-            // Called when the user long-clicks on someView
-            public boolean onLongClick(View view) {
+        getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {            // Called when the user long-clicks on someView
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
                 if (mActionMode != null) {
                     return false;
                 }
 
-                // Start the CAB using the ActionMode.Callback defined above
+                identityStr = names[position];
+                selectedID = id;
+                selectedPosition = position;
+                selectedView = view;
+                selectedName = names[selectedPosition];
                 mActionMode = MainActivity.this.startActionMode(mActionModeCallback);
                 view.setSelected(true);
                 return true;
             }
-        }); */
+});
 
-            }
+    }
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
@@ -146,6 +205,7 @@ public class MainActivity extends ListActivity implements ActionBar.OnNavigation
     @Override
     public void onRestart() {
         onCreate(null);
+        super.onRestart();
     }
 
     @Override
